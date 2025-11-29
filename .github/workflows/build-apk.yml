@@ -7,7 +7,7 @@ permissions:
 
 env:
   ANDROID_BUILD_TOOLS: "34.0.0"
-  ANDROID_PLATFORM:    "android-33"
+  ANDROID_PLATFORM:    "android-34"
 
 jobs:
   build:

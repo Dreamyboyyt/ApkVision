@@ -1,21 +1,32 @@
-name: Zip Project
-
-on:
-  workflow_dispatch:
+name: Generate Gradle Wrapper & Zip Project
+on: workflow_dispatch
 
 jobs:
-  zip:
-    name: Zip Entire Project
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
-      - name: Zip project
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install Gradle 9.2.0
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 9.2.0
+
+      - name: Generate Gradle wrapper
+        run: gradle wrapper
+
+      - name: Zip entire project recursively
         run: zip -r project.zip .
 
-      - name: Upload artifact
+      - name: Upload project artifact
         uses: actions/upload-artifact@v4
         with:
-          name: project-zip
+          name: project
           path: project.zip
