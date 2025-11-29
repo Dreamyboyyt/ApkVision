@@ -2,9 +2,9 @@
 
 buildscript {
     repositories {
-     maven { url "https://repo.jfrog.org/artifactory/libs-release/" }
      google()
      mavenCentral()
+     maven { url "https://repo.jfrog.org/artifactory/libs-release/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:9.0.0'
@@ -16,6 +16,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://repo.jfrog.org/artifactory/libs-release/" }
     }
 }
 
