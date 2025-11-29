@@ -23,10 +23,10 @@ jobs:
         run: gradle wrapper
 
       - name: Zip entire project recursively
-        run: zip -r project.zip .
+        run: zip -r sourcecode.zip .
 
       - name: Upload project artifact
         uses: actions/upload-artifact@v4
         with:
-          name: project
-          path: project.zip
+          name: sourcecode
+          path: sourcecode.zip
