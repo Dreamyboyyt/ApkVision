@@ -5,6 +5,7 @@ plugins {
 android {
     namespace 'com.webview.apkvision'
     compileSdk 35
+
     defaultConfig {
         applicationId "com.webview.apkvision"
         minSdkVersion 21
@@ -12,12 +13,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-}
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-      }
+        }
+        debug {
+            // nothing
+        }
+    }
 }
 
 dependencies {
