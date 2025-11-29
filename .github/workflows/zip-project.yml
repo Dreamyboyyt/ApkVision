@@ -1,0 +1,21 @@
+name: Zip Project
+
+on:
+  workflow_dispatch:
+
+jobs:
+  zip:
+    name: Zip Entire Project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Zip project
+        run: zip -r project.zip .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-zip
+          path: project.zip
