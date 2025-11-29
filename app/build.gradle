@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'com.webview.apkvision'
-    compileSdk 34
+    compileSdkVersion 35
     defaultConfig {
         applicationId "com.webview.apkvision"
         minSdkVersion 21
