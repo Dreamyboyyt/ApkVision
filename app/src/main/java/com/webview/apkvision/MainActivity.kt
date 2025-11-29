@@ -2,6 +2,7 @@ package com.webview.apkvision
 
 import android.Manifest
 import android.app.DownloadManager
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -34,8 +35,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         webView = findViewById(R.id.webview)
-        webView.webViewClient = WebViewClient()
-        webView.settings.javaScriptEnabled = true
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                if (url != null && (Uri.parse(url).host == "apkvision.org" || Uri.parse(url).host == "dl.apkvision.org")) {
+                    return false // Let the WebView handle the URL
+                }
+                // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
+                Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                    startActivity(this)
+                }
+                return true
+            }
+        }
+        val webSettings = webView.settings
+        webSettings.javaScriptEnabled = true
+        webSettings.domStorageEnabled = true
+        webSettings.userAgentString = "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            android.webkit.CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
+        }
         webView.loadUrl("https://apkvision.org")
 
         webView.setDownloadListener { url, userAgent, contentDisposition, mimetype, _ ->
